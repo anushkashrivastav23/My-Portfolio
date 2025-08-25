@@ -1,0 +1,912 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0a0a0a; /* Darker background */
+    color: #e0e0e0; /* Lighter text color */
+    overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex; /* Make body a flex container */
+    flex-direction: column; /* Stack content vertically */
+}
+
+/* Original background animation - KEPT AS IS */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(circle at top left, rgba(0, 128, 128, 0.1), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(128, 0, 128, 0.1), transparent 50%);
+    animation: backgroundPulse 15s infinite alternate;
+}
+
+@keyframes backgroundPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.about-container {
+    padding: 2rem;
+    max-width: 1100px;
+    margin: auto;
+    position: relative; /* For z-index to work against background */
+    z-index: 1; /* Content above background */
+    flex-grow: 1; /* Allows content to take available space pushing footer down */
+}
+
+.about-header h1 {
+    text-align: center;
+    font-size: 3.5rem;
+    color: #00bcd4; /* Brighter teal */
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+    animation: neonGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.about-header h1::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #00bcd4;
+    margin: 10px auto 0;
+    border-radius: 2px;
+    animation: underlineExpand 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from { text-shadow: 0 0 10px #00bcd4; }
+    to { text-shadow: 0 0 20px #00bcd4, 0 0 30px #00bcd4; }
+}
+
+@keyframes underlineExpand {
+    0% { width: 40px; }
+    100% { width: 120px; }
+}
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3rem;
+    background: rgba(10, 20, 30, 0.7); /* Slightly transparent dark background */
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.3);
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    animation: fadeIn 1s ease-out;
+}
+
+.profile-pic {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid #00bcd4;
+    box-shadow: 0 0 25px #00bcd4, 0 0 50px rgba(0, 188, 212, 0.5);
+    animation: float 4s ease-in-out infinite;
+    flex-shrink: 0; /* Prevent shrinking on smaller screens */
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+/* @keyframes rotateBorder { -- This animation keyframe was present but not applied to any element. Retaining as per "don't change rest of code" interpretation --
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} */
+
+.about-text {
+    flex: 1;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #c0c0c0;
+    text-align: justify;
+}
+
+.about-text p strong {
+    color: #00bcd4;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    opacity: 0; /* For fade-in effect with JS */
+    transform: translateY(20px); /* For slide-up effect with JS */
+    animation: fadeInUpText 1s ease-out forwards;
+}
+
+.about-text p:nth-child(1) { animation-delay: 0.2s; }
+.about-text p:nth-child(2) { animation-delay: 0.4s; }
+.about-text p:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes fadeInUpText {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-section, .certifications-section {
+    margin-top: 5rem;
+    padding-bottom: 2rem; /* Add some padding before footer */
+}
+
+.timeline-section h2, .certifications-section h2 {
+    color: #00bcd4;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #00bcd4;
+    display: inline-block;
+    padding-bottom: 5px;
+    text-shadow: 0 0 10px rgba(0, 188, 212, 0.4);
+    text-align: left; /* Default left align */
+}
+
+.timeline-section h2 i, .certifications-section h2 i {
+    margin-right: 15px;
+    color: #00bcd4;
+}
+
+.education-grid, .certification-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.education-item, .certification-item {
+    background: rgba(10, 20, 30, 0.7);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 188, 212, 0.2);
+    border: 1px solid rgba(0, 188, 212, 0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* For certifications, the entire item is a link */
+.certification-item a {
+    text-decoration: none;
+    color: inherit; /* Inherit text color from parent */
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%; /* Make the link fill the item */
+}
+
+.education-item:hover, .certification-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 188, 212, 0.4);
+}
+
+.laptop-icon, .certificate-icon {
+    font-size: 3.5rem;
+    color: #00bcd4;
+    flex-shrink: 0;
+    animation: bounceIn 0.8s ease-out; /* Retained existing animation */
+}
+
+.education-content h3, .certification-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    color: #eee;
+    font-size: 1.6rem;
+}
+
+.education-content p, .certification-content p {
+    margin: 0.5rem 0;
+    color: #c0c0c0;
+    font-size: 1.05rem;
+}
+
+.skills-gained {
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    font-style: italic;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed rgba(0, 188, 212, 0.3);
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Main Navigation Div (consistent with index.html) */
+.main-nav-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: auto;
+    background: #0f172a;
+    border-radius: 30px;
+    border: 1px solid #1a202c;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.main-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.main-navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease-in-out;
+}
+
+.main-navbar a i {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.main-navbar a:hover {
+    color: #38b2ac;
+}
+
+.main-navbar a:hover i {
+    transform: translateY(-3px);
+}
+
+/* Social Links Vertical Div (consistent with index.html) */
+.social-links-vertical {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 999;
+}
+
+.social-links-vertical a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.social-links-vertical a:hover {
+    color: #38b2ac;
+    transform: translateX(5px);
+}
+
+/* --- Footer Styling (Consistent with index.html) --- */
+.site-footer {
+    background-color: #10161d; /* Slightly lighter dark than body for distinction */
+    color: #c9d1d9;
+    padding: 60px 25px 30px; /* Top padding increased, bottom for copyright */
+    border-top: 1px solid rgba(0, 255, 255, 0.2); /* Subtle cyan border at the top */
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Below content, above fixed nav/social if they overlap */
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap; /* Allows sections to wrap on smaller screens */
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto 40px; /* Space between content and copyright */
+    gap: 30px; /* Space between footer sections */
+}
+
+.footer-section {
+    flex: 1; /* Allow sections to grow and shrink */
+    min-width: 250px; /* Minimum width before wrapping */
+    margin-bottom: 20px; /* Space for wrapped sections on small screens */
+    text-align: left; /* Align text within sections */
+}
+
+.footer-section h3 {
+    color: #00ffff; /* Neon cyan for section headings */
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px; /* Short underline for headings */
+    height: 2px;
+    background-color: #00ffff;
+    box-shadow: 0 0 8px #00ffff;
+}
+
+.footer-section.about p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #b0b8c3;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section.links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section.links ul li a {
+    color: #c9d1d9;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-section.links ul li a:hover {
+    color: #00ffff; /* Neon cyan on hover */
+    text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateX(5px); /* Slight movement on hover */
+}
+
+.footer-section.social {
+    text-align: center; /* Center social icons */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between icons */
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #c9d1d9;
+    font-size: 1.8rem; /* Larger social icons */
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #00ffff; /* Neon cyan on hover */
+    transform: translateY(-5px) scale(1.1); /* Lift and slightly enlarge */
+    text-shadow: 0 0 15px #00ffff, 0 0 30px rgba(0, 255, 255, 0.7);
+}
+
+.footer-bottom {
+    font-size: 0.9rem;
+    color: #8b949e;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201, 209, 217, 0.1); /* Subtle divider */
+}
+
+
+/* --- Responsive Design for About Page --- */
+
+/* Large devices (laptops/desktops, 992px - 1199px) */
+@media (max-width: 1199px) {
+    .about-container {
+        padding: 1.8rem;
+    }
+
+    .about-header h1 {
+        font-size: 3rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .about-content {
+        padding: 2.2rem;
+        gap: 2.8rem;
+    }
+
+    .profile-pic {
+        width: 220px;
+        height: 220px;
+    }
+
+    .about-text {
+        font-size: 1.1rem;
+    }
+
+    .timeline-section h2,
+    .certifications-section h2 {
+        font-size: 2.3rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .education-grid,
+    .certification-grid {
+        gap: 2.2rem;
+    }
+
+    .education-item,
+    .certification-item {
+        padding: 1.8rem;
+        gap: 1.2rem;
+    }
+
+    .laptop-icon,
+    .certificate-icon {
+        font-size: 3.2rem;
+    }
+
+    .education-content h3,
+    .certification-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .education-content p,
+    .certification-content p {
+        font-size: 1rem;
+    }
+
+    .skills-gained {
+        font-size: 0.9rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 50px 20px 25px;
+    }
+
+    .footer-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .footer-section.links ul li a {
+        font-size: 0.95rem;
+    }
+
+    .social-icons a {
+        font-size: 1.6rem;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 20px;
+        padding: 0.6rem 1rem;
+    }
+
+    .main-navbar {
+        gap: 1.5rem;
+    }
+
+    .main-navbar a {
+        font-size: 0.9rem;
+    }
+
+    .main-navbar a i {
+        font-size: 1.2rem;
+    }
+
+    .social-links-vertical {
+        left: 20px;
+        gap: 1rem;
+    }
+
+    .social-links-vertical a {
+        font-size: 1.5rem;
+    }
+}
+
+/* Medium devices (tablets, 768px - 991px) */
+@media (max-width: 991px) {
+    .about-container {
+        padding: 1.5rem;
+    }
+
+    .about-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-content {
+        flex-direction: column; /* Stack image and text */
+        text-align: center;
+        padding: 2rem;
+        gap: 2.5rem;
+    }
+
+    .profile-pic {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 1.5rem; /* Center and add bottom margin */
+    }
+
+    .about-text {
+        font-size: 1rem;
+        text-align: justify; /* Keep text justified */
+    }
+
+    .timeline-section h2,
+    .certifications-section h2 {
+        font-size: 2rem;
+        text-align: center; /* Center section titles */
+        display: block; /* Make it a block to center */
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content; /* Adjust width to content for centering underline */
+    }
+
+    .education-grid,
+    .certification-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .education-item,
+    .certification-item {
+        flex-direction: column; /* Stack icon and content */
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .laptop-icon,
+    .certificate-icon {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .education-content h3,
+    .certification-content h3 {
+        font-size: 1.4rem;
+    }
+
+    .education-content p,
+    .certification-content p {
+        font-size: 1rem;
+    }
+
+    .skills-gained {
+        font-size: 0.9rem;
+    }
+
+    /* Footer adjustments for stacking */
+    .site-footer {
+        padding: 40px 15px 20px;
+    }
+
+    .footer-content {
+        flex-direction: column; /* Stack footer sections vertically */
+        align-items: center; /* Center them */
+        margin-bottom: 30px;
+    }
+
+    .footer-section {
+        text-align: center; /* Center text within stacked sections */
+        max-width: 400px; /* Constrain width for readability when stacked */
+        min-width: unset; /* Remove min-width to allow shrinking */
+        margin-bottom: 25px; /* Add more space between stacked sections */
+    }
+
+    .footer-section:last-child {
+        margin-bottom: 0; /* No bottom margin for the last section */
+    }
+
+    .footer-section h3::after {
+        left: 50%; /* Center the underline for stacked headings */
+        transform: translateX(-50%);
+    }
+
+    .footer-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .footer-section.about p {
+        font-size: 0.95rem;
+    }
+
+    .footer-section.links ul li a {
+        font-size: 0.95rem;
+    }
+
+    .social-icons a {
+        font-size: 1.5rem;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 15px;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .main-navbar {
+        gap: 1rem;
+    }
+
+    .main-navbar a {
+        font-size: 0.85rem;
+    }
+
+    .main-navbar a i {
+        font-size: 1.1rem;
+    }
+
+    .social-links-vertical {
+        left: 15px;
+        gap: 0.9rem;
+    }
+
+    .social-links-vertical a {
+        font-size: 1.3rem;
+    }
+}
+
+/* Small devices (landscape phones, 576px - 767px) */
+@media (max-width: 767px) {
+    .about-container {
+        padding: 1rem;
+    }
+
+    .about-header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .about-content {
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1rem;
+    }
+
+    .about-text {
+        font-size: 0.95rem;
+    }
+
+    .timeline-section h2,
+    .certifications-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .education-grid,
+    .certification-grid {
+        gap: 1.5rem;
+    }
+
+    .education-item,
+    .certification-item {
+        padding: 1rem;
+    }
+
+    .laptop-icon,
+    .certificate-icon {
+        font-size: 2.5rem;
+    }
+
+    .education-content h3,
+    .certification-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .education-content p,
+    .certification-content p {
+        font-size: 0.9rem;
+    }
+
+    .skills-gained {
+        font-size: 0.85rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 30px 10px 15px;
+    }
+
+    .footer-section h3 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+
+    .footer-section.about p {
+        font-size: 0.9rem;
+    }
+
+    .footer-section.links ul li a {
+        font-size: 0.9rem;
+    }
+
+    .social-icons a {
+        font-size: 1.4rem;
+    }
+
+    .footer-bottom {
+        font-size: 0.8rem;
+        padding-top: 15px;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 10px;
+        padding: 0.4rem;
+        width: calc(100% - 30px); /* Slightly narrower container */
+        border-radius: 30px;
+    }
+
+    .main-navbar {
+        gap: 0.8rem;
+    }
+
+    .main-navbar a {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+    .main-navbar a i {
+        font-size: 1rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .social-links-vertical {
+        left: 10px;
+        gap: 0.8rem;
+        /* Hiding on smaller screens to prevent clutter */
+        display: none; 
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .about-container {
+        padding: 0.8rem;
+    }
+
+    .about-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .about-content {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .about-text {
+        font-size: 0.85rem;
+    }
+
+    .timeline-section h2,
+    .certifications-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .education-grid,
+    .certification-grid {
+        gap: 1rem;
+    }
+
+    .education-item,
+    .certification-item {
+        padding: 0.8rem;
+    }
+
+    .laptop-icon,
+    .certificate-icon {
+        font-size: 2rem;
+    }
+
+    .education-content h3,
+    .certification-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .education-content p,
+    .certification-content p {
+        font-size: 0.85rem;
+    }
+
+    .skills-gained {
+        font-size: 0.8rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 20px 5px 10px;
+    }
+
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .footer-section.about p {
+        font-size: 0.8rem;
+    }
+
+    .footer-section.links ul li a {
+        font-size: 0.8rem;
+    }
+
+    .social-icons {
+        gap: 15px;
+    }
+
+    .social-icons a {
+        font-size: 1.2rem;
+    }
+
+    .footer-bottom {
+        font-size: 0.7rem;
+        padding-top: 10px;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 5px;
+        padding: 0.3rem;
+        width: calc(100% - 20px);
+    }
+
+    .main-navbar {
+        gap: 0.5rem;
+    }
+
+    .main-navbar a {
+        font-size: 0.7rem;
+        padding: 4px 6px;
+    }
+
+    .main-navbar a i {
+        font-size: 0.9rem;
+    }
+
+    .social-links-vertical {
+        display: none; /* Definitely hide on smallest screens */
+    }
+}

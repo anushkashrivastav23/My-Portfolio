@@ -1,0 +1,770 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0a0a0a; /* Dark background from about.css */
+    color: #e0e0e0; /* Lighter text color */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex; /* Make body a flex container */
+    flex-direction: column; /* Stack content vertically */
+}
+
+/* Background animation similar to about.css */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(circle at top left, rgba(0, 188, 212, 0.1), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(128, 0, 128, 0.1), transparent 50%);
+    animation: backgroundPulse 15s infinite alternate;
+}
+
+@keyframes backgroundPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.skills-container {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1; /* Allows content to take available space pushing footer down */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3.5rem;
+    color: #00bcd4; /* Brighter teal */
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+    animation: neonGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #00bcd4;
+    margin: 10px auto 0;
+    border-radius: 2px;
+    animation: underlineExpand 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from { text-shadow: 0 0 10px #00bcd4; }
+    to { text-shadow: 0 0 20px #00bcd4, 0 0 30px #00bcd4; }
+}
+
+@keyframes underlineExpand {
+    0% { width: 40px; }
+    100% { width: 120px; }
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for technical and professional */
+    gap: 4rem;
+    align-items: flex-start; /* Align sections to the top */
+    margin-bottom: 5rem; /* Space before footer */
+}
+
+.technical-skills, .professional-skills {
+    background: rgba(10, 20, 30, 0.7); /* Slightly transparent dark background */
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.3);
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.technical-skills h2, .professional-skills h2 {
+    color: #00bcd4;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(0, 188, 212, 0.5);
+    padding-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(0, 188, 212, 0.3);
+}
+
+.technical-skills h2 i, .professional-skills h2 i {
+    margin-right: 10px;
+}
+
+/* Technical Skills (Progress Bars) */
+.skill-item {
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+.skill-item:nth-child(1) { animation-delay: 0.2s; }
+.skill-item:nth-child(2) { animation-delay: 0.4s; }
+.skill-item:nth-child(3) { animation-delay: 0.6s; }
+.skill-item:nth-child(4) { animation-delay: 0.8s; }
+.skill-item:nth-child(5) { animation-delay: 1.0s; }
+.skill-item:nth-child(6) { animation-delay: 1.2s; }
+
+
+.skill-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    height: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%; /* Initial width for animation */
+    background: linear-gradient(to right, #00bcd4, #38b2ac); /* Teal gradient */
+    border-radius: 10px;
+    transition: width 1.5s ease-out; /* Smooth animation for fill */
+}
+
+.skill-percentage {
+    font-size: 1.1rem;
+    color: #00bcd4;
+    font-weight: bold;
+    margin-left: 10px; /* Space from progress bar */
+}
+
+/* Professional Skills (Circular Progress) */
+.professional-skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.professional-skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+.professional-skill-item:nth-child(1) { animation-delay: 0.3s; }
+.professional-skill-item:nth-child(2) { animation-delay: 0.6s; }
+.professional-skill-item:nth-child(3) { animation-delay: 0.9s; }
+.professional-skill-item:nth-child(4) { animation-delay: 1.2s; }
+
+.circular-progress-container {
+    position: relative;
+    width: 150px; /* Size of the circle */
+    height: 150px;
+    margin-bottom: 1rem;
+}
+
+.circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: rgba(0, 188, 212, 0.2); /* Lighter teal for background circle */
+    stroke-width: 2.8;
+}
+
+.circle {
+    fill: none;
+    stroke: url(#gradient-teal); /* Use a gradient for the fill */
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    transform: rotate(-90deg); /* Start from the top */
+    transform-origin: center;
+    transition: stroke-dasharray 1.5s ease-out, stroke-dashoffset 1.5s ease-out;
+}
+
+.percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #00bcd4;
+    text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+}
+
+.professional-skill-item h3 {
+    font-size: 1.3rem;
+    color: #eee;
+}
+
+/* Common Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Navigation and Social Links Styling (Consistent) --- */
+.main-nav-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: auto;
+    background: #0f172a;
+    border-radius: 30px;
+    border: 1px solid #1a202c;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.main-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.main-navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease-in-out;
+}
+
+.main-navbar a i {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.main-navbar a:hover, .main-navbar a.active {
+    color: #38b2ac;
+}
+
+.main-navbar a:hover i {
+    transform: translateY(-3px);
+}
+
+.social-links-vertical {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 999;
+}
+
+.social-links-vertical a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.social-links-vertical a:hover {
+    color: #38b2ac;
+    transform: translateX(5px);
+}
+
+/* --- Footer Styling (Consistent with about.css) --- */
+.site-footer {
+    background-color: #10161d; /* Slightly lighter dark than body for distinction */
+    color: #c9d1d9;
+    padding: 60px 25px 30px; /* Top padding increased, bottom for copyright */
+    border-top: 1px solid rgba(0, 255, 255, 0.2); /* Subtle cyan border at the top */
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Below content, above fixed nav/social if they overlap */
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap; /* Allows sections to wrap on smaller screens */
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto 40px; /* Space between content and copyright */
+    gap: 30px; /* Space between footer sections */
+}
+
+.footer-section {
+    flex: 1; /* Allow sections to grow and shrink */
+    min-width: 250px; /* Minimum width before wrapping */
+    margin-bottom: 20px; /* Space for wrapped sections on small screens */
+    text-align: left; /* Align text within sections */
+}
+
+.footer-section h3 {
+    color: #00ffff; /* Neon cyan for section headings */
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px; /* Short underline for headings */
+    height: 2px;
+    background-color: #00ffff;
+    box-shadow: 0 0 8px #00ffff;
+}
+
+.footer-section.about p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #b0b8c3;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section.links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section.links ul li a {
+    color: #c9d1d9;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-section.links ul li a:hover {
+    color: #00ffff; /* Neon cyan on hover */
+    text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateX(5px); /* Slight movement on hover */
+}
+
+.footer-section.social {
+    text-align: center; /* Center social icons */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between icons */
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #c9d1d9;
+    font-size: 1.8rem; /* Larger social icons */
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #00ffff; /* Neon cyan on hover */
+    transform: translateY(-5px) scale(1.1); /* Lift and slightly enlarge */
+    text-shadow: 0 0 15px #00ffff, 0 0 30px rgba(0, 255, 255, 0.7);
+}
+
+.footer-bottom {
+    font-size: 0.9rem;
+    color: #8b949e;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201, 209, 217, 0.1); /* Subtle divider */
+}
+
+/* --- Responsive Design for Skills Page --- */
+
+/* Large devices (laptops/desktops, 992px - 1199px) */
+@media (max-width: 1199px) {
+    .skills-container {
+        padding: 2.5rem 1.8rem;
+    }
+    .section-title {
+        font-size: 3rem;
+        margin-bottom: 2.5rem;
+    }
+    .skills-grid {
+        gap: 3.5rem;
+    }
+    .technical-skills, .professional-skills {
+        padding: 2rem;
+    }
+    .technical-skills h2, .professional-skills h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.8rem;
+    }
+    .skill-item h3 {
+        font-size: 1.25rem;
+    }
+    .skill-percentage {
+        font-size: 1.05rem;
+    }
+    .circular-progress-container {
+        width: 130px;
+        height: 130px;
+    }
+    .percentage-text {
+        font-size: 2rem;
+    }
+    .professional-skill-item h3 {
+        font-size: 1.2rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 50px 20px 25px;
+    }
+    .footer-section h3 {
+        font-size: 1.6rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.95rem;
+    }
+    .social-icons a {
+        font-size: 1.6rem;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 20px;
+        padding: 0.6rem 1rem;
+    }
+    .main-navbar {
+        gap: 1.5rem;
+    }
+    .main-navbar a {
+        font-size: 0.9rem;
+    }
+    .main-navbar a i {
+        font-size: 1.2rem;
+    }
+    .social-links-vertical {
+        left: 20px;
+        gap: 1rem;
+    }
+    .social-links-vertical a {
+        font-size: 1.5rem;
+    }
+}
+
+/* Medium devices (tablets, 768px - 991px) */
+@media (max-width: 991px) {
+    .skills-container {
+        padding: 2rem 1.5rem;
+    }
+    .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+    .skills-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+        gap: 3rem;
+    }
+    .technical-skills, .professional-skills {
+        padding: 1.8rem;
+    }
+    .technical-skills h2, .professional-skills h2 {
+        font-size: 1.7rem;
+        margin-bottom: 1.6rem;
+        text-align: center; /* Center headings when stacked */
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+    }
+    .technical-skills h2::after, .professional-skills h2::after { /* Center underline */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .skill-item h3 {
+        font-size: 1.2rem;
+    }
+    .skill-percentage {
+        font-size: 1rem;
+    }
+    .professional-skills {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust min-width */
+        gap: 1.5rem;
+    }
+    .circular-progress-container {
+        width: 120px;
+        height: 120px;
+    }
+    .percentage-text {
+        font-size: 1.8rem;
+    }
+    .professional-skill-item h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Footer adjustments for stacking */
+    .site-footer {
+        padding: 40px 15px 20px;
+    }
+    .footer-content {
+        flex-direction: column; /* Stack footer sections vertically */
+        align-items: center; /* Center them */
+        margin-bottom: 30px;
+    }
+    .footer-section {
+        text-align: center; /* Center text within stacked sections */
+        max-width: 400px; /* Constrain width for readability when stacked */
+        min-width: unset; /* Remove min-width to allow shrinking */
+        margin-bottom: 25px; /* Add more space between stacked sections */
+    }
+    .footer-section:last-child {
+        margin-bottom: 0; /* No bottom margin for the last section */
+    }
+    .footer-section h3::after {
+        left: 50%; /* Center the underline for stacked headings */
+        transform: translateX(-50%);
+    }
+    .footer-section h3 {
+        font-size: 1.6rem;
+    }
+    .footer-section.about p {
+        font-size: 0.95rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.95rem;
+    }
+    .social-icons a {
+        font-size: 1.5rem;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 15px;
+        padding: 0.5rem 0.8rem;
+    }
+    .main-navbar {
+        gap: 1rem;
+    }
+    .main-navbar a {
+        font-size: 0.85rem;
+    }
+    .main-navbar a i {
+        font-size: 1.1rem;
+    }
+    .social-links-vertical {
+        left: 15px;
+        gap: 0.9rem;
+    }
+    .social-links-vertical a {
+        font-size: 1.3rem;
+    }
+}
+
+/* Small devices (landscape phones, 576px - 767px) */
+@media (max-width: 767px) {
+    .skills-container {
+        padding: 1.5rem 1rem;
+    }
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.8rem;
+    }
+    .skills-grid {
+        gap: 2.5rem;
+    }
+    .technical-skills, .professional-skills {
+        padding: 1.5rem;
+    }
+    .technical-skills h2, .professional-skills h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+    .skill-item h3 {
+        font-size: 1.1rem;
+    }
+    .skill-percentage {
+        font-size: 0.9rem;
+    }
+    .professional-skills {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+    .circular-progress-container {
+        width: 100px;
+        height: 100px;
+    }
+    .percentage-text {
+        font-size: 1.6rem;
+    }
+    .professional-skill-item h3 {
+        font-size: 1rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 30px 10px 15px;
+    }
+    .footer-section h3 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+    .footer-section.about p {
+        font-size: 0.9rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.9rem;
+    }
+    .social-icons a {
+        font-size: 1.4rem;
+    }
+    .footer-bottom {
+        font-size: 0.8rem;
+        padding-top: 15px;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 10px;
+        padding: 0.4rem;
+        width: calc(100% - 30px); /* Slightly narrower container */
+        border-radius: 30px;
+    }
+    .main-navbar {
+        gap: 0.8rem;
+    }
+    .main-navbar a {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+    .main-navbar a i {
+        font-size: 1rem;
+        margin-bottom: 0.1rem;
+    }
+    .social-links-vertical {
+        left: 10px;
+        gap: 0.8rem;
+        display: none; /* Hide on smaller screens to prevent clutter */
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .skills-container {
+        padding: 1rem 0.8rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    .skills-grid {
+        gap: 2rem;
+    }
+    .technical-skills, .professional-skills {
+        padding: 1.2rem;
+    }
+    .technical-skills h2, .professional-skills h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .skill-item h3 {
+        font-size: 1rem;
+    }
+    .skill-percentage {
+        font-size: 0.8rem;
+    }
+    .professional-skills {
+        grid-template-columns: 1fr; /* Stack professional skills on very small screens */
+        gap: 1.2rem;
+    }
+    .circular-progress-container {
+        width: 80px;
+        height: 80px;
+    }
+    .percentage-text {
+        font-size: 1.3rem;
+    }
+    .professional-skill-item h3 {
+        font-size: 0.9rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 20px 5px 10px;
+    }
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    .footer-section.about p {
+        font-size: 0.8rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.8rem;
+    }
+    .social-icons {
+        gap: 15px;
+    }
+    .social-icons a {
+        font-size: 1.2rem;
+    }
+    .footer-bottom {
+        font-size: 0.7rem;
+        padding-top: 10px;
+    }
+
+    /* Navbar adjustments */
+    .main-nav-container {
+        bottom: 5px;
+        padding: 0.3rem;
+        width: calc(100% - 20px);
+    }
+    .main-navbar {
+        gap: 0.5rem;
+    }
+    .main-navbar a {
+        font-size: 0.7rem;
+        padding: 4px 6px;
+    }
+    .main-navbar a i {
+        font-size: 0.9rem;
+    }
+    .social-links-vertical {
+        display: none; /* Definitely hide on smallest screens */
+    }
+}

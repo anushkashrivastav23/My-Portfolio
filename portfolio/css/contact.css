@@ -1,0 +1,649 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    background: #0a0a0a; /* Dark background from other pages, consistent with your original contact.css */
+    position: relative;
+    overflow-x: hidden; /* Prevents horizontal scroll from responsive adjustments */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column; /* Allows content to push footer to the bottom */
+}
+
+/* Background animation consistent with about.css and skills.css */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(circle at top left, rgba(0, 128, 128, 0.1), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(128, 0, 128, 0.1), transparent 50%);
+    animation: backgroundPulse 15s infinite alternate;
+}
+
+@keyframes backgroundPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.contact-container {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1; /* Allow content to grow and push footer down */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3.5rem;
+    color: #00bcd4; /* Brighter teal */
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+    animation: neonGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #00bcd4;
+    margin: 10px auto 0;
+    border-radius: 2px;
+    animation: underlineExpand 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from { text-shadow: 0 0 10px #00bcd4; }
+    to { text-shadow: 0 0 20px #00bcd4, 0 0 30px #00bcd4; }
+}
+
+@keyframes underlineExpand {
+    0% { width: 40px; }
+    100% { width: 120px; }
+}
+
+.contact-content {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 3rem;
+    justify-content: center; /* Center items when they wrap */
+    background: rgba(10, 20, 30, 0.7); /* Slightly transparent dark background */
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.3);
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.contact-info, .contact-form {
+    flex: 1; /* Allows both to take equal space */
+    min-width: 300px; /* Minimum width before wrapping */
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: rgba(10, 20, 30, 0.8); /* Slightly darker for inner sections */
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.1);
+    border: 1px solid rgba(0, 188, 212, 0.1);
+}
+
+.contact-info h2, .contact-form h2 {
+    color: #00bcd4;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(0, 188, 212, 0.5);
+    padding-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(0, 188, 212, 0.3);
+}
+
+/* Contact Information Styling */
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    color: #c0c0c0;
+}
+
+.info-item i {
+    color: #00bcd4;
+    font-size: 1.5rem;
+    margin-right: 15px;
+    width: 30px; /* Fixed width for icon alignment */
+    text-align: center;
+}
+
+/* Contact Form Styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.1rem;
+    color: #eee;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5); /* Darker input background */
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical; /* Allow vertical resizing for textarea */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00bcd4;
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    background: linear-gradient(to right, #00bcd4, #38b2ac); /* Teal gradient */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
+    opacity: 0.9;
+}
+
+.form-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #fff;
+    background-color: rgba(0, 188, 212, 0.2);
+    border: 1px solid rgba(0, 188, 212, 0.5);
+    display: none; /* Hidden by default, shown by JS */
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Common Animations (copied for consistency) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Navigation and Social Links Styling (Copied from index.css for consistency) */
+.main-nav-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: auto;
+    background: #0f172a;
+    border-radius: 30px;
+    border: 1px solid #1a202c;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.main-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.main-navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease-in-out;
+}
+
+.main-navbar a i {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.main-navbar a:hover, .main-navbar a.active {
+    color: #38b2ac;
+}
+
+.main-navbar a:hover i {
+    transform: translateY(-3px);
+}
+
+.social-links-vertical {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 999;
+}
+
+.social-links-vertical a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.social-links-vertical a:hover {
+    color: #38b2ac;
+    transform: translateX(5px);
+}
+
+/* --- New Footer Styling (from your provided style.css) --- */
+.site-footer {
+    background-color: #10161d; /* Slightly lighter dark than body for distinction */
+    color: #c9d1d9;
+    padding: 60px 25px 30px; /* Top padding increased, bottom for copyright */
+    border-top: 1px solid rgba(0, 255, 255, 0.2); /* Subtle cyan border at the top */
+    text-align: center;
+    position: relative;
+    z-index: 2; /* Ensure footer is above background animation */
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap; /* Allows sections to wrap on smaller screens */
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto 40px; /* Space between content and copyright */
+    gap: 30px; /* Space between footer sections */
+}
+
+.footer-section {
+    flex: 1; /* Allow sections to grow and shrink */
+    min-width: 250px; /* Minimum width before wrapping */
+    margin-bottom: 20px; /* Space for wrapped sections on small screens */
+    text-align: left; /* Align text within sections */
+}
+
+.footer-section h3 {
+    color: #00ffff; /* Neon cyan for section headings */
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px; /* Short underline for headings */
+    height: 2px;
+    background-color: #00ffff;
+    box-shadow: 0 0 8px #00ffff;
+}
+
+.footer-section.about p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #b0b8c3;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section.links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section.links ul li a {
+    color: #c9d1d9;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-section.links ul li a:hover {
+    color: #00ffff; /* Neon cyan on hover */
+    text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.5);
+    /* transform: translateX(5px); Removed, as it's not in the provided code snippet, and might conflict with other hover effects */
+}
+
+.footer-section.social {
+    text-align: center; /* Center social icons */
+}
+
+/* Note: The .social-icons class is used in two places (vertical social links and footer social links).
+   Ensure its styling in the footer is specific enough if you want different sizes/gaps.
+   I've kept the one provided in your footer section, which will override the general one if placed later. */
+.footer-section .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between icons */
+    margin-top: 15px;
+}
+
+.footer-section .social-icons a {
+    color: #c9d1d9;
+    font-size: 1.8rem; /* Larger social icons */
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-section .social-icons a:hover {
+    color: #00ffff; /* Neon cyan on hover */
+    transform: translateY(-5px) scale(1.1); /* Lift and slightly enlarge */
+    text-shadow: 0 0 15px #00ffff, 0 0 30px rgba(0, 255, 255, 0.7);
+}
+
+.footer-bottom {
+    font-size: 0.9rem;
+    color: #8b949e;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201, 209, 217, 0.1); /* Subtle divider */
+}
+
+/* --- Responsive Adjustments --- */
+
+/* Large devices (laptops/desktops, 992px - 1199px) - Adjust footer specific styles */
+@media (max-width: 1199px) {
+    /* Footer adjustments */
+    .site-footer {
+        padding: 50px 20px 25px;
+    }
+
+    .footer-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .footer-section.links ul li a {
+        font-size: 0.95rem;
+    }
+
+    .footer-section .social-icons a {
+        font-size: 1.6rem;
+    }
+}
+
+/* Medium devices (tablets, 768px - 991px) */
+@media (max-width: 991px) {
+    /* Existing Contact page specific adjustments */
+    .contact-container {
+        padding: 2rem 1rem;
+    }
+    .section-title {
+        font-size: 2.5rem;
+    }
+    .contact-info, .contact-form {
+        padding: 1.5rem;
+        min-width: unset; /* Remove min-width on small screens */
+    }
+    .contact-info h2, .contact-form h2 {
+        font-size: 1.8rem;
+    }
+    .info-item {
+        font-size: 1rem;
+    }
+    .info-item i {
+        font-size: 1.3rem;
+    }
+    .form-group label {
+        font-size: 1rem;
+    }
+    .form-group input, .form-group textarea {
+        font-size: 0.95rem;
+    }
+    .btn-primary {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+    }
+
+    /* Navigation and social links responsive adjustments */
+    .main-nav-container {
+        bottom: 15px; /* Adjust bottom position */
+        padding: 0.5rem 0.8rem; /* Reduce padding */
+        width: auto; /* Allow it to shrink naturally */
+    }
+    .main-navbar {
+        gap: 1rem; /* Reduce gap for navigation items */
+    }
+    .main-navbar a {
+        font-size: 0.85rem;
+    }
+    .main-navbar a i {
+        font-size: 1.1rem;
+        margin-bottom: 0.1rem;
+    }
+    .social-links-vertical {
+        left: 15px; /* Adjust left position */
+        gap: 0.9rem; /* Reduce gap */
+    }
+    .social-links-vertical a {
+        font-size: 1.2rem;
+    }
+
+    /* Footer adjustments for stacking (from your provided style.css) */
+    .site-footer {
+        padding: 40px 15px 20px;
+    }
+    .footer-content {
+        flex-direction: column; /* Stack footer sections vertically */
+        align-items: center; /* Center them */
+        margin-bottom: 30px;
+    }
+    .footer-section {
+        text-align: center; /* Center text within stacked sections */
+        max-width: 400px; /* Constrain width for readability when stacked */
+        min-width: unset; /* Remove min-width to allow shrinking */
+        margin-bottom: 25px; /* Add more space between stacked sections */
+    }
+    .footer-section:last-child {
+        margin-bottom: 0; /* No bottom margin for the last section */
+    }
+    .footer-section h3::after {
+        left: 50%; /* Center the underline for stacked headings */
+        transform: translateX(-50%);
+    }
+    .footer-section h3 {
+        font-size: 1.6rem;
+    }
+    .footer-section.about p {
+        font-size: 0.95rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.9rem;
+    }
+    .footer-section .social-icons a { /* Specific to footer social icons */
+        font-size: 1.5rem;
+    }
+    .footer-bottom {
+        font-size: 0.8rem;
+        padding-top: 1rem;
+    }
+}
+
+/* Small devices (landscape phones, 576px - 767px) */
+@media (max-width: 767px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 0.8rem; /* Space between stacked buttons */
+        margin-top: 1rem;
+    }
+    .btn {
+        width: 100%; /* Full width for stacked buttons */
+        max-width: 280px; /* Limit max width of buttons */
+        margin: 0 auto; /* Center buttons */
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .main-nav-container {
+        bottom: 10px;
+        padding: 0.4rem;
+        width: calc(100% - 20px); /* Make it narrower */
+        border-radius: 25px;
+    }
+    .main-navbar {
+        gap: 0.7rem; /* Further reduce gap */
+    }
+    .main-navbar a {
+        font-size: 0.8rem;
+        padding: 4px 6px;
+    }
+    .main-navbar a i {
+        font-size: 1rem;
+        margin-bottom: 0.1rem;
+    }
+    .social-links-vertical {
+        left: 10px;
+        gap: 0.8rem;
+        display: none; /* Consider hiding vertical social links on very small screens if navigation covers them */
+    }
+    .social-links-vertical a {
+        font-size: 1.1rem;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 25px 10px 10px;
+    }
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    .footer-section.about p {
+        font-size: 0.85rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.8rem;
+    }
+    .footer-section .social-icons a { /* Specific to footer social icons */
+        font-size: 1.3rem;
+    }
+    .footer-bottom {
+        font-size: 0.75rem;
+        padding-top: 10px;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .section-title {
+        font-size: 1.6rem;
+        line-height: 1.2;
+    }
+    .buttons {
+        gap: 0.5rem;
+    }
+    .btn {
+        max-width: 220px; /* Smaller max-width for buttons */
+        font-size: 0.8rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .main-nav-container {
+        bottom: 5px;
+        padding: 0.3rem;
+        width: calc(100% - 10px);
+    }
+    .main-navbar {
+        gap: 0.4rem;
+    }
+    .main-navbar a {
+        font-size: 0.65rem;
+        padding: 3px 5px;
+    }
+    .main-navbar a i {
+        font-size: 0.9rem;
+    }
+
+    /* Hide social links on smallest screens if they clash with nav */
+    .social-links-vertical {
+        display: none;
+    }
+
+    /* Footer adjustments */
+    .site-footer {
+        padding: 20px 5px 5px;
+    }
+    .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    .footer-section.about p {
+        font-size: 0.75rem;
+    }
+    .footer-section.links ul li a {
+        font-size: 0.75rem;
+    }
+    .footer-section .social-icons { /* Specific to footer social icons */
+        gap: 10px; /* Even smaller gap for icons */
+    }
+    .footer-section .social-icons a { /* Specific to footer social icons */
+        font-size: 1.1rem;
+    }
+    .footer-bottom {
+        font-size: 0.7rem;
+        padding-top: 8px;
+    }
+}
+
+/* Extra extra small devices (less than 360px) - further navigation adjustments */
+@media (max-width: 360px) {
+    .main-navbar a span {
+        display: none; /* Hide text on very small screens for better icon visibility */
+    }
+    .main-navbar a i {
+        margin-bottom: 0;
+    }
+    .section-title {
+        font-size: 1.8rem; /* Adjusted slightly based on typical mobile fonts */
+    }
+    .footer-section {
+        width: 100%; /* Full width for sections on smallest screens */
+    }
+}
